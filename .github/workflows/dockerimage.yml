@@ -8,6 +8,6 @@ jobs:
     - name: Publish to Docker Repository
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: npsoni/tweepy
+        name: npsoni/tweepy:$GITHUB_SHA
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
