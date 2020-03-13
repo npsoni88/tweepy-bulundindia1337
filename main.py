@@ -6,6 +6,7 @@
 import tweepy
 import time
 import os
+from datetime import datetime
 
 consumer_key = os.getenv("CONSUMER_KEY")
 consumer_secret = os.getenv("CONSUMER_SECRET")
@@ -33,6 +34,8 @@ def write_last_id(FILENAME, last_retweet_id):
 tweets = api.home_timeline(since_id=(read_last_id(FILENAME)))
 
 def main():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
     while True:
         for i in tweets:
             try:
@@ -43,7 +46,7 @@ def main():
                 api.create_favorite(i.id)
             except tweepy.TweepError as e:
                 print(e, i.id)
-            print("retweeteed! and liked ", i.id)
+            print(f"retweeteed! and liked at {current_time} for {i.id} id ")
             write_last_id(FILENAME, i.id)
             time.sleep(20)
     

@@ -3,11 +3,13 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SHA8: ${GITHUB_SHA::8}
     steps:
     - uses: actions/checkout@master
     - name: Publish to Docker Repository
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: npsoni/tweepy:${GITHUB_SHA::4}
+        name: npsoni/tweepy:$SHA8
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
